@@ -70,47 +70,20 @@
         <h2>Horarios FGC</h2>
         <div class="enlaces-container">
             
-            <!-- Enlace dinámico Ir al trabajo -->
-            <a id="btn-ida" class="link-btn" href="#" target="_blank">
+            <!-- Enlace directo Ir al trabajo -->
+            <a class="link-btn" href="https://fgc.cat" target="_blank">
                 Ir trabajo
                 <span class="info-paradas">Sant Josep ➔ Pl. Espanya</span>
             </a>
             
-            <!-- Enlace dinámico Vuelta del trabajo -->
-            <a id="btn-vuelta" class="link-btn vuelta" href="#" target="_blank">
+            <!-- Enlace directo Vuelta del trabajo -->
+            <a class="link-btn vuelta" href="https://fgc.cat" target="_blank">
                 Vuelta de trabajo
                 <span class="info-paradas">Pl. Espanya ➔ Sant Josep</span>
             </a>
             
         </div>
     </div>
-
-    <script>
-        function actualizarEnlaces() {
-            const ahora = new Date();
-            
-            const dia = String(ahora.getDate()).padStart(2, '0');
-            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-            const ano = ahora.getFullYear();
-            const fechaActual = `${dia}-${mes}-${ano}`;
-            
-            const horas = String(ahora.getHours()).padStart(2, '0');
-            const minutos = String(ahora.getMinutes()).padStart(2, '0');
-            const horaActual = `${horas}%3A${minutos}`;
-
-            // URLs exactas construidas con los parámetros nativos de FGC y el tiempo real
-            const urlIda = `https://fgc.cat{fechaActual}&time_from=${horaActual}`;
-            const urlVuelta = `https://fgc.cat{fechaActual}&time_from=${horaActual}`;
-
-            // Inyectar las URLs directamente en los atributos href del HTML
-            document.getElementById('btn-ida').href = urlIda;
-            document.getElementById('btn-vuelta').href = urlVuelta;
-        }
-
-        // Ejecutar inmediatamente al abrir y refrescar cada 1 segundo
-        actualizarEnlaces();
-        setInterval(actualizarEnlaces, 1000);
-    </script>
 
 </body>
 </html>
