@@ -42,6 +42,9 @@
             text-decoration: none;
             border-radius: 8px;
             font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
             transition: background 0.3s, transform 0.2s;
         }
         .link-btn:hover {
@@ -70,19 +73,54 @@
         <div class="enlaces-container">
             
             <!-- Botón Ir al trabajo -->
-            <a class="link-btn" href="https://fgc.cat" target="_blank">
+            <button class="link-btn" onclick="buscarFGC('ida')">
                 Ir trabajo
                 <span class="info-paradas">Sant Josep ➔ Pl. Espanya</span>
-            </a>
+            </button>
             
             <!-- Botón Vuelta del trabajo -->
-            <a class="link-btn vuelta" href="https://www.fgc.cat/cercador/?from_address=Barcelona-Pla%C3%A7a+Espanya&from_lat=41.3745059&from_lng=2.1484134&from_code=PE&to_address=Sant+Josep&to_lat=41.360700975&to_lng=2.10991665&to_code=SP&datetime_option=0&range_option=0" target="_blank">
+            <button class="link-btn vuelta" onclick="buscarFGC('vuelta')">
                 Vuelta de trabajo
                 <span class="info-paradas">Pl. Espanya ➔ Sant Josep</span>
-            </a>
+            </button>
             
         </div>
     </div>
+
+    <script>
+        function buscarFGC(trayecto) {
+            // Obtener fecha y hora actual localmente
+            const ahora = new Date();
+            
+            const dia = String(ahora.getDate()).padStart(2, '0');
+            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+            const ano = ahora.getFullYear();
+            const fechaFormateada = `${dia}-${mes}-${ano}`;
+            
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            const horaFormateada = `${horas}%3A${minutos}`;
+
+            // Coordenadas y códigos exactos provistos por el sistema FGC
+            const paramSantJosep = "from_address=Sant+Josep&from_lat=41.360700975&from_lng=2.10991665&from_code=SP";
+            const paramPlEspanya = "to_address=Barcelona-Pla%C3%A7a+Espanya&to_lat=41.3745059&to_lng=2.1484134&to_code=PE";
+
+            let urlBase = "https://fgc.cat?";
+            let urlFinal = "";
+
+            if (trayecto === 'ida') {
+                urlFinal = `${urlBase}${paramSantJosep}&${paramPlEspanya}&datetime_option=0&range_option=0&date=${fechaFormateada}&time_from=${horaFormateada}`;
+            } else {
+                // Invertir origen y destino para la vuelta
+                const paramSantJosepVuelta = paramSantJosep.replace(/from_/g, 'to_');
+                const paramPlEspanyaVuelta = paramPlEspanya.replace(/to_/g, 'from_');
+                urlFinal = `${urlBase}${paramPlEspanyaVuelta}&${paramSantJosepVuelta}&datetime_option=0&range_option=0&date=${fechaFormateada}&time_from=${horaFormateada}`;
+            }
+
+            // Abrir la búsqueda en una pestaña nueva
+            window.open(urlFinal, '_blank');
+        }
+    </script>
 
 </body>
 </html>
