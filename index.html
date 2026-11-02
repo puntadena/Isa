@@ -43,9 +43,6 @@
             border-radius: 8px;
             font-weight: bold;
             font-size: 16px;
-            cursor: pointer;
-            border: none;
-            width: 100%;
             transition: background 0.3s, transform 0.2s;
         }
         .link-btn:hover {
@@ -73,24 +70,23 @@
         <h2>Horarios FGC</h2>
         <div class="enlaces-container">
             
-            <!-- Botón Ir al trabajo -->
-            <button class="link-btn" onclick="irFGC('ida')">
+            <!-- Enlace dinámico Ir al trabajo -->
+            <a id="btn-ida" class="link-btn" href="#" target="_blank">
                 Ir trabajo
                 <span class="info-paradas">Sant Josep ➔ Pl. Espanya</span>
-            </button>
+            </a>
             
-            <!-- Botón Vuelta del trabajo -->
-            <button class="link-btn vuelta" onclick="irFGC('vuelta')">
+            <!-- Enlace dinámico Vuelta del trabajo -->
+            <a id="btn-vuelta" class="link-btn vuelta" href="#" target="_blank">
                 Vuelta de trabajo
                 <span class="info-paradas">Pl. Espanya ➔ Sant Josep</span>
-            </button>
+            </a>
             
         </div>
     </div>
 
     <script>
-        function irFGC(trayecto) {
-            // Capturar la fecha y hora exacta del momento del clic
+        function actualizarEnlaces() {
             const ahora = new Date();
             
             const dia = String(ahora.getDate()).padStart(2, '0');
@@ -102,19 +98,18 @@
             const minutos = String(ahora.getMinutes()).padStart(2, '0');
             const horaActual = `${horas}%3A${minutos}`;
 
-            let urlFinal = "";
+            // URLs exactas construidas con los parámetros nativos de FGC y el tiempo real
+            const urlIda = `https://fgc.cat{fechaActual}&time_from=${horaActual}`;
+            const urlVuelta = `https://fgc.cat{fechaActual}&time_from=${horaActual}`;
 
-            if (trayecto === 'ida') {
-                // Dirección exacta que me has pedido (Ida) aplicando la hora en tiempo real
-                urlFinal = `https://fgc.cat{fechaActual}&time_from=${horaActual}`;
-            } else {
-                // Dirección exacta invertida (Vuelta) aplicando la hora en tiempo real
-                urlFinal = `https://fgc.cat{fechaActual}&time_from=${horaActual}`;
-            }
-
-            // Abre el buscador concreto de FGC en una pestaña nueva
-            window.open(urlFinal, '_blank');
+            // Inyectar las URLs directamente en los atributos href del HTML
+            document.getElementById('btn-ida').href = urlIda;
+            document.getElementById('btn-vuelta').href = urlVuelta;
         }
+
+        // Ejecutar inmediatamente al abrir y refrescar cada 1 segundo
+        actualizarEnlaces();
+        setInterval(actualizarEnlaces, 1000);
     </script>
 
 </body>
