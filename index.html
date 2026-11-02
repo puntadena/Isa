@@ -36,6 +36,7 @@
         }
         .link-btn {
             display: block;
+            width: 100%;
             padding: 12px;
             background-color: #007bff;
             color: white;
@@ -73,13 +74,13 @@
         <div class="enlaces-container">
             
             <!-- Botón Ir al trabajo -->
-            <button class="link-btn" onclick="buscarFGC('ida')">
+            <button class="link-btn" onclick="enviarBusquedaFGC('SP', 'Sant Josep', '41.360700975', '2.10991665', 'PE', 'Barcelona-Plaça Espanya', '41.3745059', '2.1484134')">
                 Ir trabajo
                 <span class="info-paradas">Sant Josep ➔ Pl. Espanya</span>
             </button>
             
             <!-- Botón Vuelta del trabajo -->
-            <button class="link-btn vuelta" onclick="buscarFGC('vuelta')">
+            <button class="link-btn vuelta" onclick="enviarBusquedaFGC('PE', 'Barcelona-Plaça Espanya', '41.3745059', '2.1484134', 'SP', 'Sant Josep', '41.360700975', '2.10991665')">
                 Vuelta de trabajo
                 <span class="info-paradas">Pl. Espanya ➔ Sant Josep</span>
             </button>
@@ -87,38 +88,51 @@
         </div>
     </div>
 
+    <!-- Formulario oculto que procesa el envío nativo POST/GET a la plataforma de FGC -->
+    <form id="fgcForm" action="https://fgc.cat" method="GET" target="_blank" style="display:none;">
+        <input type="hidden" name="from_code" id="f_code">
+        <input type="hidden" name="from_address" id="f_address">
+        <input type="hidden" name="from_lat" id="f_lat">
+        <input type="hidden" name="from_lng" id="f_lng">
+        
+        <input type="hidden" name="to_code" id="t_code">
+        <input type="hidden" name="to_address" id="t_address">
+        <input type="hidden" name="to_lat" id="t_lat">
+        <input type="hidden" name="to_lng" id="t_lng">
+        
+        <input type="hidden" name="datetime_option" value="0">
+        <input type="hidden" name="range_option" value="0">
+        <input type="hidden" name="date" id="f_date">
+        <input type="hidden" name="time_from" id="f_time">
+    </form>
+
     <script>
-        function buscarFGC(trayecto) {
-            // Obtener fecha y hora actual localmente
+        function enviarBusquedaFGC(origCod, origNom, origLat, origLng, destCod, destNom, destLat, destLng) {
+            // Calcular fecha y hora actual en el momento del click
             const ahora = new Date();
-            
             const dia = String(ahora.getDate()).padStart(2, '0');
             const mes = String(ahora.getMonth() + 1).padStart(2, '0');
             const ano = ahora.getFullYear();
-            const fechaFormateada = `${dia}-${mes}-${ano}`;
             
             const horas = String(ahora.getHours()).padStart(2, '0');
             const minutos = String(ahora.getMinutes()).padStart(2, '0');
-            const horaFormateada = `${horas}%3A${minutos}`;
 
-            // Coordenadas y códigos exactos provistos por el sistema FGC
-            const paramSantJosep = "from_address=Sant+Josep&from_lat=41.360700975&from_lng=2.10991665&from_code=SP";
-            const paramPlEspanya = "to_address=Barcelona-Pla%C3%A7a+Espanya&to_lat=41.3745059&to_lng=2.1484134&to_code=PE";
+            // Insertar datos dinámicos en el formulario estructurado
+            document.getElementById('f_code').value = origCod;
+            document.getElementById('f_address').value = origNom;
+            document.getElementById('f_lat').value = origLat;
+            document.getElementById('f_lng').value = origLng;
 
-            let urlBase = "https://fgc.cat?";
-            let urlFinal = "";
+            document.getElementById('t_code').value = destCod;
+            document.getElementById('t_address').value = destNom;
+            document.getElementById('t_lat').value = destLat;
+            document.getElementById('t_lng').value = destLng;
 
-            if (trayecto === 'ida') {
-                urlFinal = `${urlBase}${paramSantJosep}&${paramPlEspanya}&datetime_option=0&range_option=0&date=${fechaFormateada}&time_from=${horaFormateada}`;
-            } else {
-                // Invertir origen y destino para la vuelta
-                const paramSantJosepVuelta = paramSantJosep.replace(/from_/g, 'to_');
-                const paramPlEspanyaVuelta = paramPlEspanya.replace(/to_/g, 'from_');
-                urlFinal = `${urlBase}${paramPlEspanyaVuelta}&${paramSantJosepVuelta}&datetime_option=0&range_option=0&date=${fechaFormateada}&time_from=${horaFormateada}`;
-            }
+            document.getElementById('f_date').value = `${dia}-${mes}-${ano}`;
+            document.getElementById('f_time').value = `${horas}:${minutos}`;
 
-            // Abrir la búsqueda en una pestaña nueva
-            window.open(urlFinal, '_blank');
+            // Enviar el formulario emulando la acción de su buscador
+            document.getElementById('fgcForm').submit();
         }
     </script>
 
