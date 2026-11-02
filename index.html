@@ -36,15 +36,12 @@
         }
         .link-btn {
             display: block;
-            width: 100%;
             padding: 12px;
             background-color: #007bff;
             color: white;
             text-decoration: none;
             border-radius: 8px;
             font-weight: bold;
-            cursor: pointer;
-            border: none;
             font-size: 16px;
             transition: background 0.3s, transform 0.2s;
         }
@@ -73,47 +70,17 @@
         <h2>Horarios FGC</h2>
         <div class="enlaces-container">
             
-            <!-- Formulario de Ida (Trabajo) -->
-            <form action="https://fgc.cat" method="GET" target="_blank">
-                <input type="hidden" name="from_address" value="Sant Josep">
-                <input type="hidden" name="from_lat" value="41.360700975">
-                <input type="hidden" name="from_lng" value="2.10991665">
-                <input type="hidden" name="from_code" value="SP">
-                
-                <input type="hidden" name="to_address" value="Barcelona-Plaça Espanya">
-                <input type="hidden" name="to_lat" value="41.3745059">
-                <input type="hidden" name="to_lng" value="2.1484134">
-                <input type="hidden" name="to_code" value="PE">
-                
-                <input type="hidden" name="datetime_option" value="0">
-                <input type="hidden" name="range_option" value="0">
-                
-                <button type="submit" class="link-btn">
-                    Ir trabajo
-                    <span class="info-paradas">Sant Josep ➔ Pl. Espanya</span>
-                </button>
-            </form>
+            <!-- Enlace de Ida -->
+            <a class="link-btn" href="https://fgc.cat" target="_blank">
+                Ir trabajo
+                <span class="info-paradas">Sant Josep ➔ Pl. Espanya</span>
+            </a>
             
-            <!-- Formulario de Vuelta (Casa) -->
-            <form action="https://fgc.cat" method="GET" target="_blank">
-                <input type="hidden" name="from_address" value="Barcelona-Plaça Espanya">
-                <input type="hidden" name="from_lat" value="41.3745059">
-                <input type="hidden" name="from_lng" value="2.1484134">
-                <input type="hidden" name="from_code" value="PE">
-                
-                <input type="hidden" name="to_address" value="Sant Josep">
-                <input type="hidden" name="to_lat" value="41.360700975">
-                <input type="hidden" name="to_lng" value="2.10991665">
-                <input type="hidden" name="to_code" value="SP">
-                
-                <input type="hidden" name="datetime_option" value="0">
-                <input type="hidden" name="range_option" value="0">
-                
-                <button type="submit" class="link-btn vuelta">
-                    Vuelta de trabajo
-                    <span class="info-paradas">Pl. Espanya ➔ Sant Josep</span>
-                </button>
-            </form>
+            <!-- Enlace de Vuelta -->
+            <a class="link-btn vuelta" href="https://fgc.cat" target="_blank">
+                Vuelta de trabajo
+                <span class="info-paradas">Pl. Espanya ➔ Sant Josep</span>
+            </a>
             
         </div>
     </div>
