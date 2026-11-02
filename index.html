@@ -36,15 +36,12 @@
         }
         .link-btn {
             display: block;
-            width: 100%;
             padding: 12px;
             background-color: #007bff;
             color: white;
             text-decoration: none;
             border-radius: 8px;
             font-weight: bold;
-            cursor: pointer;
-            border: none;
             font-size: 16px;
             transition: background 0.3s, transform 0.2s;
         }
@@ -70,71 +67,23 @@
 <body>
 
     <div class="panel">
-        <h2>Horarios FGC</h2>
+        <h2>Horarios FGC (Llobregat)</h2>
         <div class="enlaces-container">
             
-            <!-- Botón Ir al trabajo -->
-            <button class="link-btn" onclick="enviarBusquedaFGC('SP', 'Sant Josep', '41.360700975', '2.10991665', 'PE', 'Barcelona-Plaça Espanya', '41.3745059', '2.1484134')">
+            <!-- Botón Ir al trabajo (Enlace directo al PDF oficial) -->
+            <a class="link-btn" href="https://www.fgc.cat/wp-content/uploads/2020/03/LA_ramal_28-de-marc.pdf" target="_blank">
                 Ir trabajo
                 <span class="info-paradas">Sant Josep ➔ Pl. Espanya</span>
-            </button>
+            </a>
             
-            <!-- Botón Vuelta del trabajo -->
-            <button class="link-btn vuelta" onclick="enviarBusquedaFGC('PE', 'Barcelona-Plaça Espanya', '41.3745059', '2.1484134', 'SP', 'Sant Josep', '41.360700975', '2.10991665')">
+            <!-- Botón Vuelta del trabajo (Mismo PDF con la tabla inversa) -->
+            <a class="link-btn vuelta" href="https://www.fgc.cat/wp-content/uploads/2020/03/LA_ramal_28-de-marc.pdf" target="_blank">
                 Vuelta de trabajo
                 <span class="info-paradas">Pl. Espanya ➔ Sant Josep</span>
-            </button>
+            </a>
             
         </div>
     </div>
-
-    <!-- Formulario oculto que procesa el envío nativo POST/GET a la plataforma de FGC -->
-    <form id="fgcForm" action="https://fgc.cat" method="GET" target="_blank" style="display:none;">
-        <input type="hidden" name="from_code" id="f_code">
-        <input type="hidden" name="from_address" id="f_address">
-        <input type="hidden" name="from_lat" id="f_lat">
-        <input type="hidden" name="from_lng" id="f_lng">
-        
-        <input type="hidden" name="to_code" id="t_code">
-        <input type="hidden" name="to_address" id="t_address">
-        <input type="hidden" name="to_lat" id="t_lat">
-        <input type="hidden" name="to_lng" id="t_lng">
-        
-        <input type="hidden" name="datetime_option" value="0">
-        <input type="hidden" name="range_option" value="0">
-        <input type="hidden" name="date" id="f_date">
-        <input type="hidden" name="time_from" id="f_time">
-    </form>
-
-    <script>
-        function enviarBusquedaFGC(origCod, origNom, origLat, origLng, destCod, destNom, destLat, destLng) {
-            // Calcular fecha y hora actual en el momento del click
-            const ahora = new Date();
-            const dia = String(ahora.getDate()).padStart(2, '0');
-            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-            const ano = ahora.getFullYear();
-            
-            const horas = String(ahora.getHours()).padStart(2, '0');
-            const minutos = String(ahora.getMinutes()).padStart(2, '0');
-
-            // Insertar datos dinámicos en el formulario estructurado
-            document.getElementById('f_code').value = origCod;
-            document.getElementById('f_address').value = origNom;
-            document.getElementById('f_lat').value = origLat;
-            document.getElementById('f_lng').value = origLng;
-
-            document.getElementById('t_code').value = destCod;
-            document.getElementById('t_address').value = destNom;
-            document.getElementById('t_lat').value = destLat;
-            document.getElementById('t_lng').value = destLng;
-
-            document.getElementById('f_date').value = `${dia}-${mes}-${ano}`;
-            document.getElementById('f_time').value = `${horas}:${minutos}`;
-
-            // Enviar el formulario emulando la acción de su buscador
-            document.getElementById('fgcForm').submit();
-        }
-    </script>
 
 </body>
 </html>
