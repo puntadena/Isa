@@ -1,89 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Panel Personal</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .panel {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            width: 350px;
-            text-align: center;
-        }
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 22px;
-            border-bottom: 2px solid #ffca28;
-            padding-bottom: 10px;
-        }
-        .enlaces-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .link-btn {
-            display: block;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            transition: background 0.3s, transform 0.2s;
-        }
-        .link-btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-        .link-btn.vuelta {
-            background-color: #28a745;
-        }
-        .link-btn.vuelta:hover {
-            background-color: #1e7e34;
-        }
-        .info-paradas {
-            font-size: 12px;
-            color: #ffffffd0;
-            margin-top: 5px;
-            font-weight: normal;
-            display: block;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transporte FGC</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+  body {
+    background: #0f172a;
+    color: #f8fafc;
+    min-height: 100vh;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .box { width: 100%; max-width: 480px; }
+  h1 { font-size: 1.4rem; text-align: center; color: #38bdf8; margin-bottom: 24px; }
+  .btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e293b;
+    color: #f8fafc;
+    text-decoration: none;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+  }
+  .btn:hover {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.08);
+  }
+  .btn-text { display: flex; flex-direction: column; gap: 4px; }
+  .btn-title { font-size: 1rem; font-weight: bold; }
+  .btn-desc { font-size: 0.8rem; color: #94a3b8; }
+  .tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+</style>
 </head>
 <body>
 
-    <div class="panel">
-        <h2>Horarios FGC</h2>
-        <div class="enlaces-container">
-            
-            <!-- Enlace de Ida -->
-            <a class="link-btn" href="https://fgc.cat" target="_blank">
-                Ir trabajo
-                <span class="info-paradas">Sant Josep ➔ Pl. Espanya</span>
-            </a>
-            
-            <!-- Enlace de Vuelta -->
-            <a class="link-btn vuelta" href="https://fgc.cat" target="_blank">
-                Vuelta de trabajo
-                <span class="info-paradas">Pl. Espanya ➔ Sant Josep</span>
-            </a>
-            
-        </div>
+<div class="box">
+  <h1>Mis Enlaces FGC</h1>
+
+  <!-- 1. Ir al trabajo -->
+  <a class="btn" href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Pl.+Espanya&amp;to_code=PE" target="_blank" rel="noopener noreferrer">
+    <div class="btn-text">
+      <span class="btn-title">Ir al trabajo</span>
+      <span class="btn-desc">Sant Josep &rarr; Pl. Espanya</span>
     </div>
+    <span class="tag">FGC Ida</span>
+  </a>
+
+  <!-- 2. Volver del trabajo -->
+  <a class="btn" href="https://www.fgc.cat/es/buscador/?from_address=Pl.+Espanya&amp;from_code=PE&amp;to_address=Sant+Josep&amp;to_code=SP" target="_blank" rel="noopener noreferrer">
+    <div class="btn-text">
+      <span class="btn-title">Volver del trabajo</span>
+      <span class="btn-desc">Pl. Espanya &rarr; Sant Josep</span>
+    </div>
+    <span class="tag">FGC Vuelta</span>
+  </a>
+</div>
 
 </body>
 </html>
